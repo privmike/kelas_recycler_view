@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
 class adapterRecView (private val listWayang : ArrayList<dcWayang>) : RecyclerView.Adapter<adapterRecView.ListViewHolder> (){
-
+private lateinit var view : View
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     interface OnItemClickCallback {
@@ -23,12 +23,25 @@ class adapterRecView (private val listWayang : ArrayList<dcWayang>) : RecyclerVi
         this.onItemClickCallback = onItemClickCallback
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return if (position%2==0){
+            2
+        }else{
+            1
+        }
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ListViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_recycler, parent,false)
+        if (viewType==2){
+
+         view= LayoutInflater.from(parent.context).inflate(R.layout.item_recycler, parent,false)
+        }else{
+
+             view= LayoutInflater.from(parent.context).inflate(R.layout.item_recycler2, parent,false)
+        }
         return ListViewHolder(view)
     }
 
